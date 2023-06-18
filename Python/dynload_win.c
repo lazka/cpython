@@ -169,8 +169,7 @@ static char *GetPythonImport (HINSTANCE hModule)
    Return whether the DLL was found.
 */
 extern HMODULE PyWin_DLLhModule;
-static int
-_Py_CheckPython3(void)
+int _Py_CheckPython3(void)
 {
     static int python3_checked = 0;
     static HANDLE hPython3;
