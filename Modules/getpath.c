@@ -68,6 +68,7 @@ getpath_abspath(PyObject *Py_UNUSED(self), PyObject *args)
     if (path) {
         wchar_t *abs;
         if (_Py_abspath((const wchar_t *)_Py_normpath(path, -1), &abs) == 0 && abs) {
+            abs = _Py_normpath(abs, -1);
             r = PyUnicode_FromWideChar(abs, -1);
             PyMem_RawFree((void *)abs);
         } else {

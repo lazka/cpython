@@ -118,7 +118,7 @@ Py_GetSepW(const wchar_t *name)
     if (sep != L'\0')
         return sep;
 #if defined(__MINGW32__)
-    msystem = Py_GETENV("MSYSTEM");
+    msystem = getenv("MSYSTEM");
 #endif
     if (msystem != NULL && strcmp(msystem, "") != 0)
         sep = L'/';
@@ -127,7 +127,7 @@ Py_GetSepW(const wchar_t *name)
     return sep;
 }
 
-static wchar_t
+wchar_t
 Py_GetAltSepW(const wchar_t *name)
 {
     char sep = Py_GetSepW(name);
