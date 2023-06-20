@@ -881,6 +881,11 @@ _PyConfig_InitPathConfig(PyConfig *config, int compute_path_config)
 #else
         !decode_to_dict(dict, "os_name", "posix") ||
 #endif
+#ifdef __MINGW32__
+        !int_to_dict(dict, "is_mingw", 1) ||
+#else
+        !int_to_dict(dict, "is_mingw", 0) ||
+#endif
 #ifdef WITH_NEXT_FRAMEWORK
         !int_to_dict(dict, "WITH_NEXT_FRAMEWORK", 1) ||
 #else
@@ -907,6 +912,9 @@ _PyConfig_InitPathConfig(PyConfig *config, int compute_path_config)
         !funcs_to_dict(dict, config->pathconfig_warnings) ||
 #ifndef MS_WINDOWS
         PyDict_SetItemString(dict, "winreg", Py_None) < 0 ||
+#endif
+#ifdef __MINGW32__
+        !env_to_dict(dict, "ENV_MSYSTEM", 0) ||
 #endif
         PyDict_SetItemString(dict, "__builtins__", PyEval_GetBuiltins()) < 0
     ) {
