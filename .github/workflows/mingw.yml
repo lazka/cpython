@@ -190,7 +190,8 @@ jobs:
             --with-system-ffi \
             --with-system-libmpdec \
             --without-ensurepip \
-            --enable-loadable-sqlite-extensions
+            --enable-loadable-sqlite-extensions \
+            --with-build-python=python3.11
 
           make -j8
 
@@ -257,7 +258,8 @@ jobs:
             --with-system-libmpdec \
             --without-ensurepip \
             --without-c-locale-coercion \
-            --enable-loadable-sqlite-extensions
+            --enable-loadable-sqlite-extensions \
+            --with-build-python=python3.11
 
           make -j8
 
