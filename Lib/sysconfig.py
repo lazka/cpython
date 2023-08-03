@@ -246,6 +246,9 @@ if _PYTHON_BUILD:
         scheme['platinclude'] = '{projectbase}/.'
     del scheme
 
+    for p in os.environ.get("PATH", "").split(os.pathsep):
+        if os.path.isdir(p):
+            os.add_dll_directory(p)
 
 def _subst_vars(s, local_vars):
     try:
