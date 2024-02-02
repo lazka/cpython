@@ -361,6 +361,12 @@ class Tests(unittest.TestCase):
                     "install",
                     tmppro,
                 ],
+                # this is required so that patched setuptools is used
+                # "PIP_EXTRA_INDEX_URL": "https://pypi.naveenmk.me/simple/",
+                env={
+                    **os.environ.copy(),
+                    "PIP_EXTRA_INDEX_URL": "https://pypi.naveenmk.me/simple/",
+                },
             )
             subprocess.check_call(
                 [sys.executable, "-c", "import cwrapper"],
