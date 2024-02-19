@@ -186,7 +186,7 @@ jobs:
             --with-system-libmpdec \
             --without-ensurepip \
             --enable-loadable-sqlite-extensions \
-            --with-build-python=python3.11
+            --with-build-python=yes
 
           make -j8
 
@@ -234,7 +234,7 @@ jobs:
           apt-get install -qqy software-properties-common
           add-apt-repository --yes ppa:deadsnakes/ppa
           apt-get update -qq
-          apt-get install -qqy autoconf-archive python3.11-dev python3.11
+          apt-get install -qqy autoconf-archive python3.12-dev python3.12
 
       - name: Build
         run: |
@@ -254,7 +254,7 @@ jobs:
             --without-ensurepip \
             --without-c-locale-coercion \
             --enable-loadable-sqlite-extensions \
-            --with-build-python=python3.11
+            --with-build-python=yes
 
           make -j8
 
