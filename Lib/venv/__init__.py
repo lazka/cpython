@@ -376,8 +376,18 @@ class EnvBuilder:
                     f'pythonw{exe_t}{exe_d}.exe': pythonw_exe,
                 }
 
+            if sys._is_mingw:
+                for key, value in list(link_sources.items()):
+                    if key.startswith('python'):
+                        link_sources[key.replace('python', 'python3')] = value
+                        link_sources[key.replace('python', f'python3.{sys.version_info[1]}')] = value
+                for key, value in list(copy_sources.items()):
+                    if key.startswith('python'):
+                        copy_sources[key.replace('python', 'python3')] = value
+                        copy_sources[key.replace('python', f'python3.{sys.version_info[1]}')] = value
+
             do_copies = True
-            if self.symlinks and not 'mingw' in sys.version.lower():
+            if self.symlinks and not sys._is_mingw:
                 do_copies = False
                 # For symlinking, we need all the DLLs to be available alongside
                 # the executables.
@@ -437,7 +447,6 @@ class EnvBuilder:
         env['VIRTUAL_ENV'] = context.env_dir
         env.pop('PYTHONHOME', None)
         env.pop('PYTHONPATH', None)
-        env.pop("MSYSTEM", None)
         kwargs['cwd'] = context.env_dir
         kwargs['executable'] = context.env_exec_cmd
         subprocess.check_output(args, **kwargs)
