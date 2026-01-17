@@ -4,6 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ${{ matrix.runner }}
+    if: matrix.msystem == 'nope'
     strategy:
       fail-fast: false
       matrix:
@@ -182,7 +183,8 @@ jobs:
             zip \
             make \
             pkg-config \
-            git
+            git \
+            libtool
 
       - uses: actions/setup-python@v5
         with:
