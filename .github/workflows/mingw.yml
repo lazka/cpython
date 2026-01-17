@@ -194,16 +194,40 @@ jobs:
 
       - name: Build
         run: |
-          autoreconf -vfi
+          DESTDIR=$(pwd)/install
+          PREFIX=/myprefix
+          HOST=x86_64-w64-mingw32
+          BUILD=x86_64-pc-linux-gnu
 
-          mkdir _build && cd _build
-
-          export PKG_CONFIG_LIBDIR=/dev/null
+          export PKG_CONFIG_SYSROOT_DIR=$DESTDIR
+          export PKG_CONFIG_LIBDIR=$DESTDIR$PREFIX/lib/pkgconfig
           unset PKG_CONFIG_PATH
 
+          # build libffi
+          git clone https://github.com/libffi/libffi.git _libffi
+          cd _libffi
+          git switch v3.4.7
+          autoreconf -vfi
+          cd ..
+          mkdir _libffi_build && cd _libffi_build
+          ../_libffi/configure \
+            --prefix="$PREFIX" \
+            --host="$HOST" \
+            --build="$BUILD" \
+            --disable-symvers \
+            --disable-docs
+          make -j8
+          DESTDIR="$DESTDIR" make install
+          cd ..
+
+          # build python
+          autoreconf -vfi
+          mkdir _build && cd _build
+
           ../configure \
-            --host=x86_64-w64-mingw32 \
-            --build=x86_64-pc-linux-gnu \
+            --host="$HOST" \
+            --build="$BUILD" \
+            --prefix="$PREFIX" \
             --enable-shared \
             --without-ensurepip \
             --enable-loadable-sqlite-extensions \
@@ -211,7 +235,7 @@ jobs:
 
           make -j8
 
-          make install DESTDIR="$(pwd)/install"
+          make install DESTDIR="$DESTDIR"
 
       - name: 'Zip files'
         run: |
