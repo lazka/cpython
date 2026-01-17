@@ -181,7 +181,8 @@ jobs:
             automake \
             zip \
             make \
-            pkg-config
+            pkg-config \
+            git
 
       - uses: actions/setup-python@v5
         with:
@@ -211,7 +212,6 @@ jobs:
           cd ..
           mkdir _libffi_build && cd _libffi_build
           ../_libffi/configure \
-            --prefix="$PREFIX" \
             --host="$HOST" \
             --build="$BUILD" \
             --disable-symvers \
@@ -258,7 +258,7 @@ jobs:
       - name: 'Run tests'
         run: |
           7z x install.zip
-          ./_build/install/usr/local/bin/python3.exe -c "import sysconfig, pprint; pprint.pprint(sysconfig.get_config_vars())"
+          ./_build/install/myprefix/bin/python3.exe -c "import sysconfig, pprint; pprint.pprint(sysconfig.get_config_vars())"
 
 
   cross-llvm-mingw:
