@@ -4,7 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ${{ matrix.runner }}
-    if: matrix.msystem == 'nope'
+    if: false
     strategy:
       fail-fast: false
       matrix:
