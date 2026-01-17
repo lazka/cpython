@@ -207,7 +207,7 @@ jobs:
           # build libffi
           git clone https://github.com/libffi/libffi.git _libffi
           cd _libffi
-          git switch v3.4.7
+          git checkout v3.4.7
           autoreconf -vfi
           cd ..
           mkdir _libffi_build && cd _libffi_build
