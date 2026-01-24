@@ -79,7 +79,6 @@ jobs:
             --with-system-expat \
             --with-system-libmpdec \
             --without-ensurepip \
-            --without-remote-debug \
             --enable-loadable-sqlite-extensions \
             --with-tzpath=${MINGW_PREFIX}/share/zoneinfo \
             --enable-optimizations
@@ -233,7 +232,6 @@ jobs:
             --prefix="$PREFIX" \
             --enable-shared \
             --without-ensurepip \
-            --without-remote-debug \
             --enable-loadable-sqlite-extensions \
             --with-build-python=yes
 
@@ -307,7 +305,6 @@ jobs:
             --build=x86_64-pc-linux-gnu \
             --enable-shared \
             --without-ensurepip \
-            --without-remote-debug \
             --without-c-locale-coercion \
             --enable-loadable-sqlite-extensions \
             --with-build-python=yes
