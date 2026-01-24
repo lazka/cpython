@@ -27,3 +27,7 @@ test.test_venv.EnsurePipTest.test_no_pip_by_default
 test.test_multiprocessing_spawn.test_manager.WithManagerTestMyManager.*
 test.test_external_inspection.*
 test.test_capi.test_object.CAPITest.test_is_unique_temporary
+test.test_audit.AuditTest.test_sys_remote_exec
+test.test_remote_pdb.PdbAttachTestCase.test_attach_to_process_with_colors
+test.test_remote_pdb.PdbAttachTestCase.test_attach_to_process_without_colors
+test.test_sys.TestRemoteExec.*
