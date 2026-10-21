@@ -285,10 +285,16 @@ jobs:
         run: |
           export DEBIAN_FRONTEND=noninteractive
           apt-get update -qq
-          apt-get install -qqy software-properties-common
-          add-apt-repository --yes ppa:deadsnakes/ppa
-          apt-get update -qq
-          apt-get install -qqy autoconf-archive python3.14-dev python3.14
+          apt-get install -qqy autoconf-archive curl ca-certificates
+
+      - name: Install Python 3.14
+        env:
+          PBS_TAG: "20261021"
+          PY_VER: "3.14.9"
+        run: |
+          url="https://github.com/astral-sh/python-build-standalone/releases/download/${PBS_TAG}/cpython-${PY_VER}+${PBS_TAG}-x86_64-unknown-linux-gnu-install_only.tar.gz"
+          curl -fsSL "$url" | tar -xz -C /opt
+          echo "/opt/python/bin" >> "$GITHUB_PATH"
 
       - name: Build
         run: |
