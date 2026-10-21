@@ -29,7 +29,7 @@ jobs:
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: msys2/setup-msys2@v2
         with:
           msystem: ${{ matrix.msystem }}
@@ -159,7 +159,7 @@ jobs:
           tar -zcf python.tar.gz python_pkgdir/
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: build-${{ matrix.msystem }}
@@ -170,7 +170,7 @@ jobs:
     container:
       image: ubuntu:25.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install deps
         run: |
           apt-get update
@@ -186,7 +186,7 @@ jobs:
             git \
             libtool
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.14'
 
@@ -249,7 +249,7 @@ jobs:
           zip -r install.zip _install
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-cross-gcc-x86_64
           path: install.zip
@@ -258,7 +258,7 @@ jobs:
     needs: [cross-gcc-x86_64]
     runs-on: windows-latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: build-cross-gcc-x86_64
 
@@ -279,7 +279,7 @@ jobs:
       matrix:
         arch: ['x86_64', 'i686', 'aarch64', 'armv7']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install deps
         run: |
@@ -325,7 +325,7 @@ jobs:
           zip -r install.zip _build/install
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-cross-llvm-mingw-${{ matrix.arch }}
           path: install.zip
@@ -345,7 +345,7 @@ jobs:
           - arch: aarch64
             runner: windows-11-arm
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: build-cross-llvm-mingw-${{ matrix.arch }}
 
